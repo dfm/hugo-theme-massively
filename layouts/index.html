@@ -40,7 +40,18 @@
 				<!-- Main -->
 					<div id="main">
 
-						{{ if (eq $postsFeaturedPostEnabled true) }}
+						{{range where .Site.Pages "Type" "=" "front"}} 
+						<article class="post featured">
+							<header class="major">
+								{{ .Content }}
+							</header>
+							{{ if .Params.image }}
+							<a href="{{ .Permalink }}" class="image main"><img src="{{ .Params.image | relURL }}" alt="" /></a>
+							{{ end }}
+						</article>
+						{{ end }}
+
+						<!-- {{ if (eq $postsFeaturedPostEnabled true) }}
 						{{ partial "posts/featured.html" (dict "firstpost" $firstPost "siteData" (index .Site.Data .Site.Language.Lang)) }}
 						{{ end }}
 
@@ -50,7 +61,7 @@
 
 						{{ $paginator := .Paginator }}
 						{{ $outer := . }}
-						{{ partial "posts/pagination.html" (dict "paginator" $paginator "outer" $outer)}}
+						{{ partial "posts/pagination.html" (dict "paginator" $paginator "outer" $outer)}} -->
 
 					</div>
 
